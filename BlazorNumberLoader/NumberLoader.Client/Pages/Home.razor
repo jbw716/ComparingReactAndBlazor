@@ -1,0 +1,37 @@
+﻿@page "/"
+@using System.Collections.Concurrent
+
+@code {
+    private int numberOfNumbers = 100000;
+    private IEnumerable<int> numbers = [];
+
+    private void FillArray()
+    {
+        List<int> numbersList = [];
+        for (int i = 0; i < numberOfNumbers; i++)
+        {
+            numbersList.Add(i);
+        }
+        numbers = numbersList;
+    }
+
+    private void FillArraySimple() => numbers = System.Linq.Enumerable.Range(0, numberOfNumbers);
+
+    private void Reset() => numbers = [];
+}
+
+<PageTitle>Home</PageTitle>
+
+<h1>Blazor Numbers</h1>
+<button @onclick=Reset>
+    Reset
+</button>
+<button @onclick=FillArray>
+    Load Numbers
+</button>
+<ul>
+    @foreach (var number in numbers)
+    {
+        <li>@number</li>
+    }
+</ul>
